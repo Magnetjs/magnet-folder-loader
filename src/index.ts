@@ -3,8 +3,6 @@ import * as requireAll from 'require-all'
 import * as path from 'path'
 import * as fs from 'mz/fs'
 import * as _ from 'lodash'
-import * as mapValues from 'lodash/mapValues'
-import * as mapKeys from 'lodash/mapKeys'
 import * as isPromise from 'is-promise'
 
 import defaultConfig, { FolderLoaderConfig } from './config/folderLoader'
@@ -23,7 +21,7 @@ export default class FolderLoader extends Module {
         await fs.stat(path.join(this.config.baseDirPath, folder.path))
         const folderFunction = requireAll(path.join(this.config.baseDirPath, folder.path))
 
-        const result = mapValues(folderFunction, (item, key) => {
+        const result = _.mapValues(folderFunction, (item, key) => {
           if (!item.default) {
             this.log.warn(`${key} file missing default export`)
             return
@@ -33,7 +31,7 @@ export default class FolderLoader extends Module {
         })
 
         if (folder.keyFormat) {
-          this.app[folder.namespace] = mapKeys(result, async (item, key) => {
+          this.app[folder.namespace] = _.mapKeys(result, async (item, key) => {
             const fd = _[folder.keyFormat](key)
 
             if (isPromise(fd)) {

@@ -13,8 +13,6 @@ const requireAll = require("require-all");
 const path = require("path");
 const fs = require("mz/fs");
 const _ = require("lodash");
-const mapValues = require("lodash/mapValues");
-const mapKeys = require("lodash/mapKeys");
 const isPromise = require("is-promise");
 const folderLoader_1 = require("./config/folderLoader");
 class FolderLoader extends module_1.Module {
@@ -29,7 +27,7 @@ class FolderLoader extends module_1.Module {
                 try {
                     yield fs.stat(path.join(this.config.baseDirPath, folder.path));
                     const folderFunction = requireAll(path.join(this.config.baseDirPath, folder.path));
-                    const result = mapValues(folderFunction, (item, key) => {
+                    const result = _.mapValues(folderFunction, (item, key) => {
                         if (!item.default) {
                             this.log.warn(`${key} file missing default export`);
                             return;
@@ -37,7 +35,7 @@ class FolderLoader extends module_1.Module {
                         return item.default(this.app);
                     });
                     if (folder.keyFormat) {
-                        this.app[folder.namespace] = mapKeys(result, (item, key) => __awaiter(this, void 0, void 0, function* () {
+                        this.app[folder.namespace] = _.mapKeys(result, (item, key) => __awaiter(this, void 0, void 0, function* () {
                             const fd = _[folder.keyFormat](key);
                             if (isPromise(fd)) {
                                 return yield fd;

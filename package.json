@@ -1,6 +1,6 @@
 {
   "name": "magnet-folder-loader",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Magnet adapter for boilerplate",
   "keywords": [
     "magnet",
@@ -32,6 +32,7 @@
   "dependencies": {
     "@types/lodash": "^4.14.54",
     "@types/node": "^7.0.5",
+    "is-promise": "^2.1.0",
     "lodash": "^4.17.4",
     "magnet-core": "^3.3.0",
     "mz": "^2.6.0",

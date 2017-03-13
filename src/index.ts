@@ -5,6 +5,7 @@ import * as fs from 'mz/fs'
 import * as _ from 'lodash'
 import * as mapValues from 'lodash/mapValues'
 import * as mapKeys from 'lodash/mapKeys'
+import * as isPromise from 'is-promise'
 
 import defaultConfig, { FolderLoaderConfig } from './config/folderLoader'
 
@@ -32,8 +33,14 @@ export default class FolderLoader extends Module {
         })
 
         if (folder.keyFormat) {
-          this.app[folder.namespace] = mapKeys(result, (item, key) => {
-            return _[folder.keyFormat](key)
+          this.app[folder.namespace] = mapKeys(result, async (item, key) => {
+            const fd = _[folder.keyFormat](key)
+
+            if (isPromise(fd)) {
+              return await fd
+            }
+
+            return fd
           })
         } else {
           this.app[folder.namespace] = result

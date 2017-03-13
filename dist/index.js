@@ -15,6 +15,7 @@ const fs = require("mz/fs");
 const _ = require("lodash");
 const mapValues = require("lodash/mapValues");
 const mapKeys = require("lodash/mapKeys");
+const isPromise = require("is-promise");
 const folderLoader_1 = require("./config/folderLoader");
 class FolderLoader extends module_1.Module {
     setup() {
@@ -36,9 +37,13 @@ class FolderLoader extends module_1.Module {
                         return item.default(this.app);
                     });
                     if (folder.keyFormat) {
-                        this.app[folder.namespace] = mapKeys(result, (item, key) => {
-                            return _[folder.keyFormat](key);
-                        });
+                        this.app[folder.namespace] = mapKeys(result, (item, key) => __awaiter(this, void 0, void 0, function* () {
+                            const fd = _[folder.keyFormat](key);
+                            if (isPromise(fd)) {
+                                return yield fd;
+                            }
+                            return fd;
+                        }));
                     }
                     else {
                         this.app[folder.namespace] = result;

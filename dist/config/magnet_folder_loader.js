@@ -18,4 +18,4 @@ function default_1({ config: { env } }) {
     };
 }
 exports.default = default_1;
-//# sourceMappingURL=folderLoader.js.map
+//# sourceMappingURL=magnet_folder_loader.js.map

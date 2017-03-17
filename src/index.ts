@@ -5,21 +5,18 @@ import * as fs from 'mz/fs'
 import * as _ from 'lodash'
 import * as isPromise from 'is-promise'
 
-import defaultConfig, { FolderLoaderConfig } from './config/folderLoader'
 
-export default class FolderLoader extends Module {
+export default class MagnetFolderLoader extends Module {
   async setup () {
-    const config: FolderLoaderConfig = this.prepareConfig('folderLoader', defaultConfig)
-
-    for (const folder of config.folders) {
+    for (const folder of this.config.folders) {
       if (!folder.path) {
         this.log.warn(`Missing folder path ${folder.path}`)
         continue
       }
 
       try {
-        await fs.stat(path.join(this.config.baseDirPath, folder.path))
-        const folderFunction = requireAll(path.join(this.config.baseDirPath, folder.path))
+        await fs.stat(path.join(this.app.config.baseDirPath, folder.path))
+        const folderFunction = requireAll(path.join(this.app.config.baseDirPath, folder.path))
 
         const result = _.mapValues(folderFunction, (item, key) => {
           if (!item.default) {

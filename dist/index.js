@@ -14,19 +14,17 @@ const path = require("path");
 const fs = require("mz/fs");
 const _ = require("lodash");
 const isPromise = require("is-promise");
-const folderLoader_1 = require("./config/folderLoader");
-class FolderLoader extends module_1.Module {
+class MagnetFolderLoader extends module_1.Module {
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
-            const config = this.prepareConfig('folderLoader', folderLoader_1.default);
-            for (const folder of config.folders) {
+            for (const folder of this.config.folders) {
                 if (!folder.path) {
                     this.log.warn(`Missing folder path ${folder.path}`);
                     continue;
                 }
                 try {
-                    yield fs.stat(path.join(this.config.baseDirPath, folder.path));
-                    const folderFunction = requireAll(path.join(this.config.baseDirPath, folder.path));
+                    yield fs.stat(path.join(this.app.config.baseDirPath, folder.path));
+                    const folderFunction = requireAll(path.join(this.app.config.baseDirPath, folder.path));
                     const result = _.mapValues(folderFunction, (item, key) => {
                         if (!item.default) {
                             this.log.warn(`${key} file missing default export`);
@@ -56,5 +54,5 @@ class FolderLoader extends module_1.Module {
         });
     }
 }
-exports.default = FolderLoader;
+exports.default = MagnetFolderLoader;
 //# sourceMappingURL=index.js.map

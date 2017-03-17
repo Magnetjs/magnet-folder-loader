@@ -5,8 +5,10 @@ import * as fs from 'mz/fs'
 import * as _ from 'lodash'
 import * as isPromise from 'is-promise'
 
-
 export default class MagnetFolderLoader extends Module {
+  get moduleName () { return 'magnet_folder_loader' }
+  get defaultConfig () { return __dirname }
+
   async setup () {
     for (const folder of this.config.folders) {
       if (!folder.path) {

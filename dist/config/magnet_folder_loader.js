@@ -1,19 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function default_1({ config: { env } }) {
-    const basePath = env.dev ? 'server' : 'dist/server';
+    const basePath = env.dev ? 'src' : 'dist/src';
     return {
         folders: [
             {
-                path: `${basePath}/models`, namespace: 'models'
+                path: 'src/models', namespace: 'models'
                 // keyFormat: 'capitalize'
             },
-            { path: `${basePath}/services`, namespace: 'svc' },
-            { path: `${basePath}/controllers`, namespace: 'ctrls' },
-            { path: `${basePath}/routers/http` },
-            { path: `${basePath}/schedulers` },
-            { path: `${basePath}/queues` },
-            { path: `${basePath}/commands` }
+            { path: 'src/services', namespace: 'svc' },
+            { path: 'src/utils', namespace: 'utils' },
+            { path: 'src/controllers', namespace: 'ctrls' },
+            { path: 'src/routers/tcp' },
+            // { path: 'routers/ws' },
+            // { path: 'routers/commands' },
+            // { path: 'routers/graphql' },
+            { path: 'src/schedulers' },
+            { path: 'src/queues' }
         ]
     };
 }

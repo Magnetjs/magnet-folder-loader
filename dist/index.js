@@ -15,8 +15,10 @@ const fs = require("mz/fs");
 const _ = require("lodash");
 const isPromise = require("is-promise");
 class MagnetFolderLoader extends module_1.Module {
-    get moduleName() { return 'magnet_folder_loader'; }
-    get defaultConfig() { return __dirname; }
+    init() {
+        this.moduleName = 'magnet_folder_loader';
+        this.defaultConfig = __dirname;
+    }
     setup() {
         return __awaiter(this, void 0, void 0, function* () {
             for (const folder of this.config.folders) {

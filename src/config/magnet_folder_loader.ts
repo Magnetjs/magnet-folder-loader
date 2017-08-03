@@ -13,12 +13,12 @@ export default function ({ config: { env } }) {
 
   return {
     folders: [
+      { path: 'src/utils', namespace: 'utils' },
       {
         path: 'src/models', namespace: 'models'
         // keyFormat: 'capitalize'
       },
       { path: 'src/services', namespace: 'svc' },
-      { path: 'src/utils', namespace: 'utils' },
 
       { path: 'src/controllers', namespace: 'ctrls' },
 

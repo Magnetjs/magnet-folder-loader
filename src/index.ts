@@ -6,8 +6,10 @@ import * as _ from 'lodash'
 import * as isPromise from 'is-promise'
 
 export default class MagnetFolderLoader extends Module {
-  get moduleName () { return 'magnet_folder_loader' }
-  get defaultConfig () { return __dirname }
+  init () {
+    this.moduleName = 'magnet_folder_loader'
+    this.defaultConfig = __dirname
+  }
 
   async setup () {
     for (const folder of this.config.folders) {

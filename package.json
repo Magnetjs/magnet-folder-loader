@@ -27,14 +27,17 @@
     "test": "ts-node tests/index.js | tap-spec",
     "watch": "tsc - w",
     "watch-test": "nodemon --delay 0.5 --ignore src --exec ts-node tests/index.js | tap-spec",
-    "watch-all": "concurrently \"npm run watch\" \"npm run watch-test\""
+    "watch-all": "concurrently \"npm run watch\" \"npm run watch-test\"",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "dependencies": {
     "is-promise": "^2.1.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "magnet-core": "^4.0.1",
     "mz": "^2.6.0",
-    "require-all": "^2.2.0"
+    "require-all": "^2.2.0",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "fly": "^2.0.5",
@@ -45,5 +48,6 @@
   },
   "engines": {
     "node": ">=6.9.5"
-  }
+  },
+  "snyk": true
 }
